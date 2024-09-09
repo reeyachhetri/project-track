@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProTrack - Teacher Homepage</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Teacher Home</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
 
 <header>
     <h1>ProTrack - Project Management</h1>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">View Projects</a>
-        <a href="#">Logout</a>
+        <a href="/teacher/home">Home</a>
+        <a href="/teacher/add">Add Student</a>
+        <a href="/teacher/logout">Logout</a>
     </nav>
 </header>
 
 <main>
-    <h2>Add Students to Project Groups</h2>
-
-    <form action="#" method="POST">
-        <label for="studentName">Student Name:</label>
-        <input type="text" id="studentName" name="studentName" required>
-
-        <label for="studentId">Student ID:</label>
-        <input type="text" id="studentId" name="studentId" required>
-
-        <label for="group">Assign Group:</label>
-        <select id="group" name="group" required>
-            <option value="group1">Group 1</option>
-            <option value="group2">Group 2</option>
-            <option value="group3">Group 3</option>
-        </select>
-
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="leader">Leader</option>
-            <option value="member">Member</option>
-        </select>
-
-        <button type="submit">Add Student</button>
-    </form>
-
-    <div th:if="${message}">
-        <p th:text="${message}"></p>
-    </div>
+    <h2>Student List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Group</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.group}"></td>
+            <td th:text="${student.role}"></td>
+            <td>
+                <a th:href="@{/teacher/edit/{id}(id=${student.id})}">Edit</a>
+                <a th:href="@{/teacher/delete/{id}(id=${student.id})}" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 
 <footer>

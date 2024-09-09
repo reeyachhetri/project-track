@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student</title>
+    <title>Edit Student</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <header>
-    <h1>ProTrack - Add Student</h1>
+    <h1>ProTrack - Edit Student</h1>
     <nav>
         <a href="/teacher/home">Home</a>
         <a href="/teacher/logout">Logout</a>
@@ -17,25 +17,27 @@
 </header>
 
 <main>
-    <h2>Add Student</h2>
-    <form action="#" th:action="@{/teacher/addstudent}" th:object="${student}" method="post">
+    <h2>Edit Student</h2>
+    <form action="#" th:action="@{/teacher/updatestudent}" th:object="${student}" method="post">
+        <input type="hidden" th:field="*{id}">
+
         <label for="name">Student Name:</label>
         <input type="text" id="name" th:field="*{name}" required>
 
         <label for="group">Assign Group:</label>
         <select id="group" th:field="*{group}" required>
-            <option value="group1">Group 1</option>
-            <option value="group2">Group 2</option>
-            <option value="group3">Group 3</option>
+            <option value="group1" th:selected="${student.group == 'group1'}">Group 1</option>
+            <option value="group2" th:selected="${student.group == 'group2'}">Group 2</option>
+            <option value="group3" th:selected="${student.group == 'group3'}">Group 3</option>
         </select>
 
         <label for="role">Role:</label>
         <select id="role" th:field="*{role}" required>
-            <option value="leader">Leader</option>
-            <option value="member">Member</option>
+            <option value="leader" th:selected="${student.role == 'leader'}">Leader</option>
+            <option value="member" th:selected="${student.role == 'member'}">Member</option>
         </select>
 
-        <button type="submit">Add Student</button>
+        <button type="submit">Update Student</button>
     </form>
 </main>
 
