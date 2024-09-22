@@ -1,20 +1,31 @@
 package web.project.track.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "students")
 public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank(message = "Name cannot be empty")
     private String name;
-    private String group;
+
+    private String groups;
     private String role;
 
-    public Student() {
+
+    public String getRole() {
+        return role;
     }
 
-    public Student(int id, String name, String group, String role) {
-        this.id = id;
-        this.name = name;
-        this.group = group;
+    public void setRole(String role) {
         this.role = role;
     }
+
 
     public int getId() {
         return id;
@@ -32,19 +43,18 @@ public class Student {
         this.name = name;
     }
 
+
+
     public String getGroup() {
-        return group;
+        return groups;
     }
 
     public void setGroup(String group) {
-        this.group = group;
+        this.groups = group;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public String toString() {
+        return "Student [id=" + id + ", name=" + name + ", group=" + groups + ", role=" + role + "]";
     }
 }

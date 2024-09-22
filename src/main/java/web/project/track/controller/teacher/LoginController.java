@@ -1,4 +1,4 @@
-package web.project.track.controller;
+package web.project.track.controller.teacher;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
