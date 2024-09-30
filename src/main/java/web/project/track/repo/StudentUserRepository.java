@@ -1,10 +1,8 @@
 package web.project.track.repo;
 
-import web.project.track.entity.StudentUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import web.project.track.entity.StudentUser;
 
 public interface StudentUserRepository extends JpaRepository<StudentUser, Integer> {
-    Optional<StudentUser> findByUsername(String username);
+    StudentUser findByUsername(String username); // Method to find user by username
 }
-
