@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.header h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.menu {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu a {
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #F37E3C; /* Main theme color */
+    border-radius: 5px;
+}
+
+.menu a:hover {
+    background-color: #d96830;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 1;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fafafa;
+}
+
+.card h2 {
+    margin: 0 0 15px 0;
+}
+
+.card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.card form button {
+    background-color: #F37E3C;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card form button:hover {
+    background-color: #d96830;
+}
+
+.card a {
+    text-decoration: none;
+    background-color: #F37E3C;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.card a:hover {
+    background-color: #d96830;
+}

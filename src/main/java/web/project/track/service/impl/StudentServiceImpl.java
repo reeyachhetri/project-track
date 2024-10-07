@@ -17,6 +17,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void addStudent(Student student) {
+        if (student.getName() == null || student.getName().trim().isEmpty()) {
+            throw new RuntimeException("Invalid Name");
+        }
         studentRepo.save(student);
     }
 

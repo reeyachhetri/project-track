@@ -1,1 +1,49 @@
-<h1>Welcome Dashboard</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Welcome, <span th:text="${studentName}">Student</span>!</h1>
+    </div>
+
+
+    <div class="menu">
+        <a href="#">Submit Daily Log</a>
+        <a href="#">View Past Logs</a>
+        <a href="#">Group Info</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+\
+    <div class="content">
+        <div class="card">
+            <h2>Submit Your Daily Log</h2>
+            <form th:action="@{/submit-log}" method="post">
+                <textarea name="workLog" placeholder="Describe your work today..." required></textarea>
+                <button type="submit">Submit Log</button>
+            </form>
+        </div>
+
+
+        <div class="card">
+            <h2>View Past Logs</h2>
+            <p>Review your submitted work logs and check their status.</p>
+            <a href="#">View Logs</a>
+        </div>
+
+
+        <div class="card">
+            <h2>Group Information</h2>
+            <p>Group Name: <span th:text="${groupName}">Group A</span></p>
+            <p>Team Leader: <span th:text="${teamLeader}">John Doe</span></p>
+            <a href="#">View Group Details</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
