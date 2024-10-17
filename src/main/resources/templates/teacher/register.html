@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Teacher Login</title>
+    <title>Register Teacher</title>
 </head>
 <body>
-<h1>Teacher Login</h1>
-<form action="#" th:action="@{/teacher/login}" method="post">
+<h1>Register Teacher</h1>
+<form action="#" th:action="@{/teacher/register}" method="post" th:object="${teacher}">
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -14,11 +14,9 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
     </div>
-    <button type="submit">Login</button>
-    <div th:if="${error}">
-        <p th:text="${error}" style="color: red;"></p>
-    </div>
+
+    <button type="submit">Register</button>
 </form>
-<p>Don't have an account? <a href="/teacher/register">Register here</a></p> <!-- Register link -->
+<p>Already have an account? <a href="/teacher/login">Login here</a></p> <!-- Login link -->
 </body>
 </html>

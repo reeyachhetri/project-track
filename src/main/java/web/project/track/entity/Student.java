@@ -1,31 +1,26 @@
 package web.project.track.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "students")
+@Table(name = "students") // Specify the table name
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message = "Name cannot be empty")
     private String name;
-
-    private String groups;
+    private String username; // Add this field
+    private String password; // Add this field
     private String role;
+    private Integer groups; // Assuming this is your group field
 
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -43,18 +38,35 @@ public class Student {
         this.name = name;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getGroup() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Integer getGroups() {
         return groups;
     }
 
-    public void setGroup(String group) {
-        this.groups = group;
-    }
-
-    @Override
-    public String toString() {
-        return "Student [id=" + id + ", name=" + name + ", group=" + groups + ", role=" + role + "]";
+    public void setGroups(Integer groups) {
+        this.groups = groups;
     }
 }

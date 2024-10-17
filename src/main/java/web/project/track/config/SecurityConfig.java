@@ -10,13 +10,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import web.project.track.repo.StudentUserRepository;
+import web.project.track.repo.TeacherRepository;
 
 @Configuration
 public class SecurityConfig {
 
     @Autowired
-    StudentUserRepository userRepository;
+    TeacherRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -43,11 +43,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().requestMatchers("/register").permitAll()
+                .authorizeRequests().requestMatchers("/teacher/register").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .formLogin(form -> form
+                        .loginPage("/teacher/login")
                         .permitAll()
                         .defaultSuccessUrl("/teacher/home", true)
                 )
