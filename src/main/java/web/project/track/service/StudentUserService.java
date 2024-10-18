@@ -1,8 +1,7 @@
 package web.project.track.service;
 
-import web.project.track.entity.StudentUser;
+import web.project.track.entity.Student;
 
 public interface StudentUserService {
-    void registerStudent(String username, String password, String name);
-    StudentUser findByUsername(String username);
+    Student authenticate(String username, String password); // Authentication method
 }
