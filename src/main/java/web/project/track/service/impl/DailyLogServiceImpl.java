@@ -21,6 +21,6 @@ public class DailyLogServiceImpl implements DailyLogService {
 
     @Override
     public List<DailyLog> getLogsByStudentId(int studentId) {
-        return dailyLogRepository.findAll(); // You can add filtering logic as needed
+        return dailyLogRepository.findByStudentId(studentId); // This should be implemented in the repository
     }
 }

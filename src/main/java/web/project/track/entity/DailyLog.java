@@ -6,25 +6,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "daily_logs")
-public class DailyLog {
 
+
+
+
+@Entity
+public class DailyLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id; // Adjust as needed based on your DB design
 
-    private int studentId; // Reference to the student submitting the log
-    private String logDate; // Date of the log submission
-    private String content; // Content of the log
+    private int studentId;
+    private String logDate;
+    private String content;
 
     // Getters and Setters
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
