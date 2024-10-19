@@ -1,9 +1,6 @@
 package web.project.track.entity;
 
 import jakarta.persistence.*;
-
-
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

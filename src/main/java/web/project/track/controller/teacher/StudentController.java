@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+import web.project.track.entity.DailyLog;
 import web.project.track.entity.Student;
+import web.project.track.service.DailyLogService;
 import web.project.track.service.StudentService;
 
 import java.util.List;
@@ -21,12 +23,18 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService; // Update service type if needed
+    @Autowired
+    private DailyLogService dailyLogService;
 
     @GetMapping("/home")
     public String homePage(Model model) {
         List<Student> studentList = studentService.getAllStudents();
+        List<DailyLog> dailyLogList = dailyLogService.getLogsByStudentId(13); // Example: Student ID 13
+
         model.addAttribute("students", studentList);
-        return "teacher/home"; // Thymeleaf template for home
+        model.addAttribute("dailyLogs", dailyLogList); // Add daily logs to the model
+
+        return "teacher/home"; // Return Thymeleaf template
     }
 
     @GetMapping("/add")

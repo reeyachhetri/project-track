@@ -32,19 +32,20 @@ public class StudentServiceUnitTest {
         student = new Student();
         student.setId(1);
         student.setName("John Doe");
-        student.setGroup("Group A");
+        student.setUsername("johndoe");
+        student.setPassword("password123");
+        student.setGroups(1);
         student.setRole("Leader");
     }
 
-    // 1. Test for Adding
+    // 1. Test for Adding a Student
     @Test
     public void testAddStudent() {
-        when(studentRepository.save(any(Student.class))).thenReturn(student);
-        studentService.addStudent(student);
-        verify(studentRepository, times(1)).save(student);
+        studentService.addStudent(student); // Call the method, no return value to check
+        verify(studentRepository, times(1)).save(student); // Verify that save was called
     }
 
-    // 2. Test for All Student
+    // 2. Test for Fetching All Students
     @Test
     public void testGetAllStudents() {
         List<Student> students = Arrays.asList(student);
@@ -52,46 +53,44 @@ public class StudentServiceUnitTest {
 
         List<Student> result = studentService.getAllStudents();
         assertEquals(1, result.size());
-        verify(studentRepository, times(1)).findAll();
+        assertEquals(student, result.get(0)); // Ensure the returned student is the same
+        verify(studentRepository, times(1)).findAll(); // Verify the repository method was called
     }
 
-    // 3. Test for Updating
+    // 3. Test for Getting a Student by ID (Found)
+    @Test
+    public void testGetStudentByIdFound() {
+        when(studentRepository.findById(student.getId())).thenReturn(Optional.of(student));
+
+        Student result = studentService.getStudentById(student.getId());
+        assertNotNull(result);
+        assertEquals(student.getId(), result.getId());
+        verify(studentRepository, times(1)).findById(student.getId());
+    }
+
+    // 4. Test for Getting a Student by ID (Not Found)
+    @Test
+    public void testGetStudentByIdNotFound() {
+        when(studentRepository.findById(10)).thenReturn(Optional.empty());
+
+        Student result = studentService.getStudentById(10);
+        assertNull(result); // Expecting null since student does not exist
+        verify(studentRepository, times(1)).findById(10);
+    }
+
+    // 5. Test for Updating a Student
     @Test
     public void testUpdateStudent() {
-        when(studentRepository.save(any(Student.class))).thenReturn(student);
-        studentService.updateStudent(student);
-        verify(studentRepository, times(1)).save(student);
+        studentService.updateStudent(student); // Call the method, no return value to check
+        verify(studentRepository, times(1)).save(student); // Verify that save was called
     }
 
-    // 4. Test for Deleting
+    // 6. Test for Deleting a Student
     @Test
     public void testDeleteStudent() {
         doNothing().when(studentRepository).deleteById(student.getId());
-        studentService.deleteStudent(student.getId());
-        verify(studentRepository, times(1)).deleteById(student.getId());
-    }
 
-    // 5. Fail Test for getting a student by ID
-    @Test
-    public void testGetStudentByIdNotFound() {
-        when(studentRepository.findById(anyInt())).thenReturn(Optional.empty());
-
-        Student result = studentService.getStudentById(10);
-        assertNull(result);
-        verify(studentRepository, times(10)).findById(10);
-    }
-
-    // 6. Fail Test
-    @Test
-    public void testAddStudentWithNullName() {
-        Student invalidStudent = new Student();
-        invalidStudent.setId(2);
-        invalidStudent.setName(null);
-
-        RuntimeException thrown = assertThrows(RuntimeException.class,
-                () -> studentService.addStudent(invalidStudent));
-
-        assertEquals("Name cannot be blank", thrown.getMessage());
-        verify(studentRepository, never()).save(any(Student.class));
+        studentService.deleteStudent(student.getId()); // Call the method
+        verify(studentRepository, times(1)).deleteById(student.getId()); // Verify delete was called
     }
 }

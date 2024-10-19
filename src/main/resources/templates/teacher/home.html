@@ -24,8 +24,8 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Username</th> <!-- New header for Username -->
-            <th>Password</th> <!-- New header for Password -->
+            <th>Username</th>
+            <th>Password</th>
             <th>Group</th>
             <th>Role</th>
             <th>Actions</th>
@@ -35,14 +35,34 @@
         <tr th:each="student : ${students}">
             <td th:text="${student.id}"></td>
             <td th:text="${student.name}"></td>
-            <td th:text="${student.username}"></td> <!-- Display Username -->
-            <td th:text="${student.password}"></td> <!-- Display Password Plainly -->
-            <td th:text="${student.groups}"></td> <!-- Display group number -->
+            <td th:text="${student.username}"></td>
+            <td th:text="${student.password}"></td>
+            <td th:text="${student.groups}"></td>
             <td th:text="${student.role}"></td>
             <td>
                 <a th:href="@{/teacher/edit/{id}(id=${student.id})}">Edit</a>
                 <a th:href="@{/teacher/delete/{id}(id=${student.id})}" onclick="return confirm('Are you sure?');">Delete</a>
             </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Daily Logs</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Log ID</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Student ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="log : ${dailyLogs}">
+            <td th:text="${log.id}"></td>
+            <td th:text="${log.content}"></td>
+            <td th:text="${log.logDate}"></td>
+            <td th:text="${log.studentId}"></td>
         </tr>
         </tbody>
     </table>
