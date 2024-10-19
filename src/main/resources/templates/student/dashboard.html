@@ -19,8 +19,8 @@
     <h2>Your Group ID: <span th:text="${groupId}"></span></h2>
 
     <h3>Submit Daily Log</h3>
-    <form th:action="@{/student/submitLog}" method="post">
-        <input type="hidden" th:name="studentId" th:value="${studentId}"/> <!-- Ensure this is set correctly -->
+    <form th:action="@{/student/submitDailyLog}" method="post">
+        <input type="hidden" th:name="studentId" th:value="${studentId}"/> <!-- Ensure studentId is set -->
 
         <label for="content">Log Content:</label>
         <textarea id="content" name="content" required></textarea>

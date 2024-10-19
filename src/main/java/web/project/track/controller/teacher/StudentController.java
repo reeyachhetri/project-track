@@ -29,13 +29,14 @@ public class StudentController {
     @GetMapping("/home")
     public String homePage(Model model) {
         List<Student> studentList = studentService.getAllStudents();
-        List<DailyLog> dailyLogList = dailyLogService.getLogsByStudentId(13); // Example: Student ID 13
+        List<DailyLog> dailyLogList = dailyLogService.getAllLogs();   // Fetch all logs (for all students)
 
         model.addAttribute("students", studentList);
         model.addAttribute("dailyLogs", dailyLogList); // Add daily logs to the model
 
         return "teacher/home"; // Return Thymeleaf template
     }
+
 
     @GetMapping("/add")
     public String showAddForm(Model model) {

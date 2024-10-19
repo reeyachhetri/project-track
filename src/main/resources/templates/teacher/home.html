@@ -51,7 +51,7 @@
     <table>
         <thead>
         <tr>
-            <th>Log ID</th>
+
             <th>Content</th>
             <th>Date</th>
             <th>Student ID</th>
@@ -59,7 +59,6 @@
         </thead>
         <tbody>
         <tr th:each="log : ${dailyLogs}">
-            <td th:text="${log.id}"></td>
             <td th:text="${log.content}"></td>
             <td th:text="${log.logDate}"></td>
             <td th:text="${log.studentId}"></td>

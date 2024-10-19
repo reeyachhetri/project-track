@@ -21,6 +21,11 @@ public class DailyLogServiceImpl implements DailyLogService {
 
     @Override
     public List<DailyLog> getLogsByStudentId(int studentId) {
-        return dailyLogRepository.findByStudentId(studentId); // This should be implemented in the repository
+        return dailyLogRepository.findByStudentId(studentId);
+    }
+
+    @Override
+    public List<DailyLog> getAllLogs() {
+        return dailyLogRepository.findAll();  // Fetch all logs from the database
     }
 }

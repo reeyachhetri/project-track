@@ -12,6 +12,7 @@ import web.project.track.entity.Student;
 import web.project.track.service.DailyLogService;
 import web.project.track.service.StudentUserService;
 
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,15 +26,19 @@ public class StudentUserController {
     @Autowired
     private DailyLogService dailyLogService;
 
+    // Show the login form
     @GetMapping("/login")
     public String showLoginForm() {
         return "student/login"; // Thymeleaf template for login
     }
 
+    // Handle login form submission
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, Model model) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
         Student student = studentUserService.authenticate(username, password);
         if (student != null) {
+            session.setAttribute("loggedInStudent", student); // Store the student in session
+
             model.addAttribute("username", student.getUsername());
             model.addAttribute("groupId", student.getGroups()); // Assuming groups is the group ID
             model.addAttribute("studentId", student.getId()); // Assuming you have a method to get the student ID
@@ -42,28 +47,37 @@ public class StudentUserController {
             List<DailyLog> logs = dailyLogService.getLogsByStudentId(student.getId());
             model.addAttribute("logs", logs);
 
-            return "student/dashboard"; // Redirect to the student dashboard
+            return "student/dashboard"; // Return to the student dashboard
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "student/login"; // Return to login with error message
         }
     }
 
-    @PostMapping("/student/submitLog")
-    public String submitLog(@RequestParam int studentId, @RequestParam String content, Model model) {
+    // Handle daily log submission
+    @PostMapping("/submitDailyLog")
+    public String submitLog(@RequestParam int studentId, @RequestParam String content, HttpSession session, Model model) {
+        Student loggedInStudent = (Student) session.getAttribute("loggedInStudent");
+
+        // Ensure the student is logged in and the session is valid
+        if (loggedInStudent == null || loggedInStudent.getId() != studentId) {
+            return "redirect:/student/login"; // Redirect to login if session is invalid
+        }
+
+        // Create and save the daily log
         DailyLog dailyLog = new DailyLog();
         dailyLog.setStudentId(studentId);
         dailyLog.setLogDate(LocalDate.now().toString()); // Set today's date
         dailyLog.setContent(content);
         dailyLogService.saveLog(dailyLog); // Save the log
 
-        // After saving, fetch the updated list of logs
+        // Fetch the updated list of logs and update the model
         List<DailyLog> logs = dailyLogService.getLogsByStudentId(studentId);
         model.addAttribute("logs", logs);
+        model.addAttribute("username", loggedInStudent.getUsername());
+        model.addAttribute("groupId", loggedInStudent.getGroups());
+        model.addAttribute("studentId", loggedInStudent.getId());
 
-        // Optionally, you can also add other model attributes like username and groupId
-        return "student/dashboard"; // Redirect to the dashboard
+        return "student/dashboard"; // Return to the dashboard
     }
-
-    // You can add a method to view logs if needed, but it's covered in the login method.
 }
